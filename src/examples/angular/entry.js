@@ -21,7 +21,7 @@ const searchTemplate = `
 <p>{{placeRes.formatted_phone_number}}</p>
 <p>{{placeRes.formatted_address}}</p>
 <p>{{placeRes.types[0]}}</p>
-<p ng-repeat="photo in placePhotoArray | limitTo:5"><img class="imgArray" src="{{photo}}">{{photDescArray[$index]}}</p>
+<p ng-repeat="photo in placePhotoArray | limitTo:5"><img class="imgArray" src="{{photo}}"><br/>{{photDescArray.outputs[$index].data.concepts[0].name}}</p>
   </div>
 </div>
 `
@@ -62,27 +62,27 @@ const searchController = ($scope) => {
           console.log($scope.placePhotoArray)
           $scope.$apply();
 
-$scope.photDescArray = [];
+$scope.photDescArray = {};
         }
       });
 
 
     });
-for ( var j = 0; j < 5; j++){
-    app.models.predict(Clarifai.GENERAL_MODEL, $scope.placePhotoArray[j]).then(
+// for ( var j = 0; j < 5; j++){
+    app.models.predict(Clarifai.GENERAL_MODEL, $scope.placePhotoArray).then(
       function(response) {
         console.log(response);
-        console.log(response.outputs[0].data.concepts[0].name);
+        // console.log(response.outputs[j].data.concepts[0].name);
     //  picDesc = response.outputs[0].data.concepts[0].name;
-      $scope.photDescArray.push(response.outputs[0].data.concepts[0].name);
-      console.log($scope.photDescArray);
+
+      $scope.photDescArray = response;
       $scope.$apply();
-      },
-      function(err) {
-        console.error(err);
-      }
-    )
-}
+
+      console.log($scope.photDescArray);
+
+      })
+// }
+console.log($scope.photDescArray);
 }
 
 }
