@@ -15,7 +15,6 @@ const searchTemplate = `
 <p>{{placeRes.formatted_address}}</p>
 <p>{{placeRes.types[0]}}</p>
 <p ng-repeat="photo in placePhotoArray | limitTo:5"><img class="imgArray" src="{{photo}}"></p>
-
   </div>
 </div>
 `
@@ -39,11 +38,9 @@ const searchController = ($scope) => {
 
     $scope.submit = function() {
         $scope.queryString = $scope.bName + ' ' + $scope.zip;
-        console.log($scope.queryString);
         service.textSearch({
               query: $scope.queryString
             }, function(results) {
-              console.log(results);
               $scope.placeId = results[0].place_id;
 
     service.getDetails({
@@ -53,7 +50,6 @@ const searchController = ($scope) => {
           $scope.placePhotoArray = [];
 
           $scope.placeRes = place;
-          console.log(place);
           for (var i = 0; i < $scope.placeRes.photos.length; i++) {
             $scope.placePhotoArray.push($scope.placeRes.photos[i].getUrl({
               maxWidth: 500,
