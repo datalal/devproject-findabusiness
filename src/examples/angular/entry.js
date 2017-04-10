@@ -27,7 +27,6 @@ const searchModule = angular.module('searchModule', [])
 const searchController = ($scope) => {
 
 
-    $scope.placePhotoArray = [];
 
 
 
@@ -51,6 +50,8 @@ const searchController = ($scope) => {
         placeId: $scope.placeId
         }, function(place, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
+          $scope.placePhotoArray = [];
+
           $scope.placeRes = place;
           console.log(place);
           for (var i = 0; i < $scope.placeRes.photos.length; i++) {
