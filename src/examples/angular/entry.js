@@ -14,7 +14,7 @@ const searchTemplate = `
 <p>{{placeRes.formatted_phone_number}}</p>
 <p>{{placeRes.formatted_address}}</p>
 <p>{{placeRes.types[0]}}</p>
-<p ng-repeat="photo in placePhotoArray | limitTo:5"><img src="{{photo}}"></p>
+<p ng-repeat="photo in placePhotoArray | limitTo:5"><img class="imgArray" src="{{photo}}"></p>
 
   </div>
 </div>
